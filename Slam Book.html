@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="author" content="Flores">
+		<meta name="section" content="Lithium">
+		<link rel="icon" href="ICON.png">
+		<title>SLAM BOOK</title>
+		<style type="text/css">
+			@font-face{
+				font-family:data;
+				src:url('data-latin.otf') format('opentype'),
+					url('data-latin.ttf') format('truetype'),
+					url('data-latin.eot') format('embedded-opentype');
+			}
+			@font-face{
+				font-family:quicksand;
+				src:url('Quicksand_Bold.otf') format('opentype'),
+					url('Quicksand_Bold.ttf') format('truetype'),
+					url('Quicksand_Bold.eot') format('embedded-opentype');
+			}
+			*{
+				box-sizing:border-box;
+				-webkit-box-sizing:border-box;				
+				-moz-box-sizing:border-box;
+				-ms-box-sizing:border-box;
+				-o-box-sizing:border-box;
+			}
+			body{
+				margin:0;
+				overflow:auto;
+				background-image:url('BG.jpg');
+				background-attachment:fixed;
+				background-repeat:no-repeat;
+				background-position:center center;
+				background-size:cover;
+				scrollbar-color:transparent transparent;
+			}
+			body::-webkit-scrollbar{
+				width:0px;
+			}
+			body::-o-scrollbar{
+				width:0px;
+			}
+			body::-ms-scrollbar{
+				width:0px;
+			}
+			body::-moz-scrollbar{
+				width:0px;
+			}
+			input{
+				outline:none;
+			}
+			button:hover{
+				background-color:lightblue;
+			}
+			button:active{
+				background-color:gray;
+			}
+			button:disabled{
+				background-color:lightgray;
+				opacity:0.5;
+			}
+			button:disabled:hover{
+				background-color:lightgray;
+				opacity:0.5;
+			}
+			button:disabled:active{
+				background-color:lightgray;
+				opacity:0.5;
+			}
+			.redText{
+				color:maroon;
+			}
+			.selected-row{
+				background-color:rgba(255, 255, 0, 0.15);
+			}
+			#leftSideUI{
+				width:14%;
+				float:left;
+				padding:0px 0 1500px 15px;
+				background-color:rgba(255, 255, 255, 0.5);
+				font-family:data;
+			}
+			#logo{
+				width:200px;
+			}
+			#leftHeaderText{
+				font-size:1.5em;
+			}
+			.questionContainers{
+				padding:0 0 15px 0;
+			}
+			.errorContainers{
+				display:none;
+				color:maroon;
+				padding:0 0 -15px 0;
+			}
+			#updateButtonContainer{
+				display:none;
+			}
+			#rightSideUI{
+				width:86%;
+				float:right;
+				display:flex;
+				justify-content:center;
+				align-items:center;
+			}
+			#rightHeaderContainer{
+				width:97%;
+				margin:20px 0 20px 0;
+			}
+			#rightHeaderTextContainer{
+				display:flex;
+				justify-content:center;
+				align-items:center;
+				background-color:rgb(255, 255, 255, 0.2);
+			}
+			#rightHeaderText{
+				font-family:data;
+				font-size:2.5em;
+				color:white;
+			}
+			#dataTable{
+				font-family:quicksand;
+				width:100%;
+				color:white;
+				margin:10px 0 0 0;
+				table-layout:fixed;
+			}
+			#dataTableHeaderRow{
+				font-family:data;
+				font-size:1.4em;
+			}
+			.nameDataColumn{
+				width:15%;
+				text-align:center;
+				background-color:rgb(255, 255, 255, 0.15);
+				word-wrap:break-word;
+			}
+			.sexDataColumn{
+				width:5%;
+				text-align:center;
+				background-color:rgb(255, 255, 255, 0.15);
+				word-wrap:break-word;
+			}
+			.ageDataColumn{
+				width:4%;
+				text-align:center;
+				background-color:rgb(255, 255, 255, 0.15);
+				word-wrap:break-word;
+			}
+			.birthDateDataColumn{
+				width:8%;
+				text-align:center;
+				background-color:rgb(255, 255, 255, 0.15);
+				word-wrap:break-word;
+			}
+			.gunTypeDataColumn{
+				width:7%;
+				text-align:center;
+				background-color:rgb(255, 255, 255, 0.15);
+				word-wrap:break-word;
+			}
+			.gunEquippedDataColumn{
+				width:10%;
+				text-align:center;
+				background-color:rgb(255, 255, 255, 0.15);
+				word-wrap:break-word;
+			}
+			.tagsDataColumn{
+				width:7%;
+				text-align:center;
+				background-color:rgb(255, 255, 255, 0.15);
+				word-wrap:break-word;
+			}
+			.colorAssignedDataColumn{
+				width:11%;
+				text-align:center;
+				background-color:rgb(255, 255, 255, 0.15);
+				word-wrap:break-word;
+			}
+			.statusDataColumn{
+				width:7%;
+				text-align:center;
+				background-color:rgb(255, 255, 255, 0.15);
+				word-wrap:break-word;
+			}
+			.infoDataColumn{
+				width:20%;
+				text-align:center;
+				background-color:rgb(255, 255, 255, 0.15);
+				word-wrap:break-word;
+			}
+			.optionsDataColumn{
+				width:6%;
+				text-align:center;
+				background-color:rgb(255, 255, 255, 0.15);
+				word-wrap:break-word;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="fullscreenContainer">
+			<div id="leftSideUI">
+				<div id="logoContainer">
+					<img src="G&K.png" id="logo">
+				</div>
+				<div id="leftHeaderTextContainer">
+					<p id="leftHeaderText">
+						FORM
+					</p>
+				</div>
+				<form id="gkForm">
+					<div id="nameQuestionContainer" class="questionContainers">
+						<label for="username">
+							Name:
+						</label>
+						<label for="username" class="redText">
+							*
+						</label>
+						</br>
+						<input type="text" name="username" id="nameTextBox" class="textBoxes" oninput="enableButton(); enableUpdateButton(); checkIfEmptyName()" onblur="checkIfEmptyName()">
+						<div id="nameErrorContainer" class="errorContainers">
+							<label for="username" id="nameEmptyError">
+								Field cannot be empty.
+							</label>
+						</div>
+					</div>
+					<label for="sexQuestionContainer">
+						Sex:
+					</label>
+					<label for="sexQuestionContainer" class="redText">
+						*
+					</label>
+					<div id="sexQuestionContainer" class="questionContainers">
+						<input type="radio" name="sex" id="male" value="Male" onchange="enableButton(); enableUpdateButton()">
+						<label for="male">
+							Male
+						</label>
+						<input type="radio" name="sex" id="female" value="Female" onchange="enableButton(); enableUpdateButton()">
+						<label for="female">
+							Female
+						</label>
+						<input type="radio" name="sex" id="other" value="Other" onchange="enableButton(); enableUpdateButton()">
+						<label for="other">
+							Other
+						</label>
+					</div>
+					<div id="ageQuestionContainer" class="questionContainers">
+						<label for="age">
+							Age:
+						</label>
+						<label for="age" class="redText">
+							*
+						</label>
+						</br>
+						<input type="number" name="age" id="ageNumberBox" oninput="enableButton(); enableUpdateButton(); checkIfEmptyAge()" onblur="checkIfEmptyAge()">
+						<div id="ageErrorContainer"  class="errorContainers">
+							<label for="age" id="ageError">
+								Please enter a valid age between 0 to 150.
+							</label>
+						</div>
+					</div>
+					<div id="birthDateQuestionContainer" class="questionContainers">
+						<label for="birthdate">
+							Birthdate:
+						</label>
+						<label for="birthdate" class="redText">
+							*
+						</label>
+						</br>
+						<input type="date" name="birthdate" id="birthDate" onchange="enableButton(); enableUpdateButton(); checkIfEmptyBirthDate()" onblur="checkIfEmptyBirthDate()">
+						<div id=birthDateErrorContainer class="errorContainers">
+							<label for="birthdate" id="birthDateError">
+								Please enter a valid birthdate.
+							</label>
+						</div>
+					</div>
+					<div id="gunTypeQuestionContainer" class="questionContainers">
+						<label for="gunType">
+							Gun Type:
+						</label>
+						<label for="gunType" class="redText">
+							*
+						</label>
+						</br>
+						<select name="gunType" id="gunTypeSelect" onchange="enableButton(); enableUpdateButton(); checkIfEmptyGunType()" onblur="checkIfEmptyGunType()">
+							<option value="gunTypeUndecided">
+								
+							</option>
+							<option value="HG">
+								Handgun
+							</option>
+							<option value="SMG">
+								Sub-Machine Gun
+							</option>
+							<option value="AR">
+								Assault Rifle
+							</option>
+							<option value="RF">
+								Rifle
+							</option>
+							<option value="MG">
+								Machine Gun
+							</option>
+							<option value="SG">
+								Shotgun
+							</option>
+						</select>
+						<div id="gunTypeErrorContainer" class="errorContainers">
+							<label for="gunType" id="gunTypeError">
+								No gun type selected.
+							</label>
+						</div>
+					</div>
+					<div id="gunEquippedQuestionContainer" class="questionContainers">
+						<label for="gunEquipped">
+							Gun Equipped:
+						</label>
+						<label for="gunEquipped" class="redText">
+							*
+						</label>
+						</br>
+						<input name="gunEquipped" id="gunEquippedBox" oninput="enableButton(); enableUpdateButton(); checkIfEmptyGunEquipped()" onblur="checkIfEmptyGunEquipped()">
+						</input>
+						<div id="gunEquippedErrorContainer" class="errorContainers">
+							<label for="gunEquippedBox" id="gunEquippedError">
+								No gun chosen.
+							</label>
+						</div>
+					</div>
+					<label for="tagsQuestionContainer">
+						Tags:
+					</label>
+					<label for="tagsQuestionContainer" id="tagCounter" class="redText">
+						(Select At Least 3)*
+					</label>
+					<div id="tagsQuestionContainer" class="questionContainers">
+						<input type="checkbox" name="tags" id="Assassin" value="Assassin" onchange="enableButton(); enableUpdateButton()">
+						<label for="Assassin">
+							Assassin
+						</label>
+						</br>
+						<input type="checkbox" name="tags" id="Caster" value="Caster" onchange="enableButton(); enableUpdateButton()">
+						<label for="Caster">
+							Caster
+						</label>
+						</br>
+						<input type="checkbox" name="tags" id="Defender" value="Defender" onchange="enableButton(); enableUpdateButton()">
+						<label for="Defender">
+							Defender
+						</label>
+						</br>
+						<input type="checkbox" name="tags" id="Guard" value="Guard" onchange="enableButton(); enableUpdateButton()">
+						<label for="Guard">
+							Guard
+						</label>
+						</br>
+						<input type="checkbox" name="tags" id="Medic" value="Medic" onchange="enableButton(); enableUpdateButton()">
+						<label for="Medic">
+							Medic
+						</label>
+						</br>
+						<input type="checkbox" name="tags" id="Sniper" value="Sniper" onchange="enableButton(); enableUpdateButton()">
+						<label for="Sniper">
+							Sniper
+						</label>
+						</br>
+						<input type="checkbox" name="tags" id="Specialist" value="Specialist" onchange="enableButton(); enableUpdateButton()">
+						<label for="Specialist">
+							Specialist
+						</label>
+						</br>
+						<input type="checkbox" name="tags" id="Supporter" value="Supporter" onchange="enableButton(); enableUpdateButton()">
+						<label for="Supporter">
+							Supporter
+						</label>
+						</br>
+						<input type="checkbox" name="tags" id="Vanguard" value="Vanguard" onchange="enableButton(); enableUpdateButton()">
+						<label for="Vanguard">
+							Vanguard
+						</label>
+						</br>
+					</div>
+					<div id="colorAssignedQuestionContainer" class="questionContainers">
+						<label for="colorpicker">
+							Color Assigned:
+						</label>
+						<label for="colorpicker" class="redText">
+							*
+						</label>
+						</br>
+						<input type="color" id="colorAssigned" name="colorpicker">
+					</div>
+					<label for="statusQuestionContainer">
+						Status:
+					</label>
+					<label for="statusQuestionContainer" class="redText">
+						*
+					</label>
+					<div id="statusQuestionContainer" class="questionContainers">
+						<input type="radio" name="status" id="standby" value="Standby" onchange="enableButton(); enableUpdateButton()">
+						<label for="standby">
+							Standby
+						</label>
+						<input type="radio" name="status" id="deployed" value="Deployed" onchange="enableButton(); enableUpdateButton()">
+						<label for="deployed">
+							Deployed
+						</label>
+						<input type="radio" name="status" id="kia" value="KIA" onchange="enableButton(); enableUpdateButton()">
+						<label for="kia">
+							KIA
+						</label>
+					</div>
+					<div>
+						<label for="additionalInfo">
+							Additional Information:
+						</label>
+						</br>
+						<textarea name="additionalInfo" id="additionalInfoTextBox" class="textBoxes" rows="4" cols="30"></textarea>
+					</div>
+				</form>
+				<div id="submitButtonContainer">
+					<button id="submitButton" onclick="submitForm(); enableButton()" disabled>Submit Form</button>
+				</div>
+				<div id="updateButtonContainer">
+					<button id="updateButton" onclick="updateForm(); enableUpdateButton()" disabled>Update Form</button>
+				</div>
+			</div>
+			<div id="rightSideUI">
+				<div id="rightHeaderContainer">
+					<div id="rightHeaderTextContainer">
+						<p id="rightHeaderText">
+							OPERATOR DATABASE
+						</p>
+					</div>
+					<div id="dataTableContainer">
+						<table id="dataTable">
+							<tr id="dataTableHeaderRow">
+								<th class="nameDataColumn">
+									Name
+								</th>
+								<th class="sexDataColumn">
+									Sex
+								</th>
+								<th class="ageDataColumn">
+									Age
+								</th>
+								<th class="birthDateDataColumn">
+									Birthdate
+								</th>
+								<th class="gunTypeDataColumn">
+									Gun Type
+								</th>
+								<th class="gunEquippedDataColumn">
+									Gun Equipped
+								</th>
+								<th class="tagsDataColumn">
+									Tags
+								</th>
+								<th class="colorAssignedDataColumn">
+									Color Assigned
+								</th>
+								<th class="statusDataColumn">
+									Status
+								</th>
+								<th class="infoDataColumn">
+									Additional Information
+								</th>
+								<th class="optionsDataColumn">
+									Options
+								</th>
+							</tr>
+							<tr id="sampleRecOne">
+								<td class="nameDataColumn">
+									Isla
+								</td>
+								<td class="sexDataColumn">
+									Male
+								</td>
+								<td class="ageDataColumn">
+									15
+								</td>
+								<td class="birthDateDataColumn">
+									2008-02-19
+								</td>
+								<td class="gunTypeDataColumn">
+									SMG
+								</td>
+								<td class="gunEquippedDataColumn">
+									UMP45
+								</td>
+								<td class="tagsDataColumn">
+									Assassin, <br> Specialist, <br> Supporter
+								</td>
+								<td class="colorAssignedDataColumn">
+									#8F8BA7
+								</td>
+								<td class="statusDataColumn">
+									Deployed
+								</td>
+								<td class="infoDataColumn">
+									Griffin Commander
+								</td>
+								<td class="optionsDataColumn">
+									<button onclick="updateSampleRecOne()">
+										Update
+									</button>
+									<button onclick="deleteSampleRecOne()">
+										Delete
+									</button>
+								</td>
+							</tr>
+							<tr id="sampleRecTwo">
+								<td class="nameDataColumn">
+									Junyah
+								</td>
+								<td class="sexDataColumn">
+									Female
+								</td>
+								<td class="ageDataColumn">
+									2
+								</td>
+								<td class="birthDateDataColumn">
+									2020-10-07
+								</td>
+								<td class="gunTypeDataColumn">
+									AR
+								</td>
+								<td class="gunEquippedDataColumn">
+									M4 SOPMOD II
+								</td>
+								<td class="tagsDataColumn">
+									Defender, <br> Guard, <br> Medic
+								</td>
+								<td class="colorAssignedDataColumn">
+									#FF0000
+								</td>
+								<td class="statusDataColumn">
+									Standby
+								</td>
+								<td class="infoDataColumn">
+									Marketable Plushie
+								</td>
+								<td class="optionsDataColumn">
+									<button onclick="updateSampleRecTwo()">
+										Update
+									</button>
+									<button onclick="deleteSampleRecTwo()">
+										Delete
+									</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		let selectedRow = null;
+
+		function enableButton(){
+			const nameTextBox = document.getElementById("nameTextBox");
+			const sexM = document.querySelector('input[name="sex"][value="Male"]');
+			const sexF = document.querySelector('input[name="sex"][value="Female"]');
+			const sexO = document.querySelector('input[name="sex"][value="Other"]');
+			const ageNumberBox = document.getElementById("ageNumberBox");
+			const age = parseInt(ageNumberBox.value);
+			const birthDate = document.getElementById("birthDate").value;
+			const currentDate = new Date();
+			const gunTypeSelect = document.getElementById("gunTypeSelect");
+			const gunEquippedBox = document.getElementById("gunEquippedBox");
+			const tagCheckboxes = document.getElementsByName("tags");
+			const tagMessage = document.getElementById("tagCounter");
+			let checkedCount = 0;
+			const statusS = document.querySelector('input[name="status"][value="Standby"]');
+			const statusD = document.querySelector('input[name="status"][value="Deployed"]');
+			const statusK = document.querySelector('input[name="status"][value="KIA"]');
+			const submitButton = document.getElementById("submitButton");
+
+			tagCheckboxes.forEach((checkbox) => {
+				if(checkbox.checked){
+					checkedCount++;
+				}
+			});
+
+			if(checkedCount < 1){
+				tagMessage.innerHTML = "(Select At Least 3)*";
+			} else if (checkedCount < 2){
+				tagMessage.innerHTML = "(Select 2 More)*";
+			} else if (checkedCount < 3){
+				tagMessage.innerHTML = "(Select 1 More)*";
+			} else if (checkedCount < 4){
+				tagMessage.innerHTML = "*";
+			}
+
+			function getNormalDisabledStatus(){
+				if(nameTextBox.value === ""){
+					return true;
+				}
+
+				if(!sexM.checked && !sexF.checked && !sexO.checked){
+					return true;
+				}
+
+				if(ageNumberBox.value === ""){
+					return true;
+				}
+
+				if(!birthDate){
+					return true;
+				}
+
+				if(gunTypeSelect.value === ""){
+					return true;
+				}
+
+				if(gunEquippedBox.value === ""){ 
+					return true;
+				}
+
+				if(checkedCount < 3){
+					return true;
+				}
+
+				if(!statusS.checked && !statusD.checked && !statusK.checked){
+					return true;
+				}
+
+				return false;
+			}
+
+			submitButton.disabled = getNormalDisabledStatus();
+		}
+
+		function enableUpdateButton(){
+			const nameTextBox = document.getElementById("nameTextBox");
+			const sexM = document.querySelector('input[name="sex"][value="Male"]');
+			const sexF = document.querySelector('input[name="sex"][value="Female"]');
+			const sexO = document.querySelector('input[name="sex"][value="Other"]');
+			const ageNumberBox = document.getElementById("ageNumberBox");
+			const age = parseInt(ageNumberBox.value);
+			const birthDate = document.getElementById("birthDate").value;
+			const currentDate = new Date();
+			const gunTypeSelect = document.getElementById("gunTypeSelect");
+			const gunEquippedBox = document.getElementById("gunEquippedBox");
+			const tagCheckboxes = document.getElementsByName("tags");
+			const tagMessage = document.getElementById("tagCounter");
+			let checkedCount = 0;
+			const statusS = document.querySelector('input[name="status"][value="Standby"]');
+			const statusD = document.querySelector('input[name="status"][value="Deployed"]');
+			const statusK = document.querySelector('input[name="status"][value="KIA"]');
+			const updateButton = document.getElementById("updateButton");
+
+			tagCheckboxes.forEach((checkbox) => {
+				if(checkbox.checked){
+					checkedCount++;
+				}
+			});
+
+			if(checkedCount < 1){
+				tagMessage.innerHTML = "(Select At Least 3)*";
+			} else if (checkedCount < 2){
+				tagMessage.innerHTML = "(Select 2 More)*";
+			} else if (checkedCount < 3){
+				tagMessage.innerHTML = "(Select 1 More)*";
+			} else if (checkedCount < 4){
+				tagMessage.innerHTML = "*";
+			}
+
+			function getUpdateDisabledStatus(){
+				if(nameTextBox.value === ""){
+					return true;
+				}
+
+				if(!sexM.checked && !sexF.checked && !sexO.checked){
+					return true;
+				}
+
+				if(ageNumberBox.value === ""){
+					return true;
+				}
+
+				if(!birthDate){
+					return true;
+				}
+
+				if(gunTypeSelect.value === ""){
+					return true;
+				}
+
+				if(gunEquippedBox.value === ""){
+					return true;
+				}
+
+				if(checkedCount < 3){
+					return true;
+				}
+
+				if(!statusS.checked && !statusD.checked && !statusK.checked){
+					return true;
+				}
+
+				return false;
+			}
+
+			updateButton.disabled = getUpdateDisabledStatus();
+
+		}
+
+		function checkIfEmptyName(){
+			if(nameTextBox.value == ""){
+				nameTextBox.style.backgroundColor = "#f8d7d7";
+				nameTextBox.style.border = "solid 2px #aa2a2a";
+				nameErrorContainer.style.display = "block";
+			} else {
+				nameTextBox.style.backgroundColor = "white";
+				nameTextBox.style.border = "solid 0px white";
+				nameErrorContainer.style.display = "none";
+			}
+		}
+
+		function checkIfEmptyAge(){
+			const ageNumberBox = document.getElementById("ageNumberBox");
+			const age = parseInt(ageNumberBox.value);
+			const submitButton = document.getElementById("submitButton");
+
+			if(ageNumberBox.value == ""){
+				ageNumberBox.style.backgroundColor = "#f8d7d7";
+				ageNumberBox.style.border = "solid 2px #aa2a2a";
+				ageErrorContainer.style.display = "block";
+			} else if(age < 0 || age > 150){
+				ageNumberBox.style.backgroundColor = "#f8d7d7";
+				ageNumberBox.style.border = "solid 2px #aa2a2a";
+				ageErrorContainer.style.display = "block";
+				submitButton.disabled = true;
+				updateButton.disabled = true;
+			} else {
+				ageNumberBox.style.backgroundColor = "white";
+				ageNumberBox.style.border = "solid 0px white";
+				ageErrorContainer.style.display = "none";
+			}
+		}
+
+		function checkIfEmptyBirthDate(){
+			const birthDate = new Date(document.getElementById("birthDate").value);
+			const birthDateBox = document.getElementById("birthDate");
+			const currentDate = new Date();
+			const submitButton = document.getElementById("submitButton");
+			const birthDateErrorContainer = document.getElementById("birthDateErrorContainer");
+
+			if (!birthDate) {
+				birthDateBox.style.backgroundColor = "#f8d7d7";
+				birthDateBox.style.border = "solid 2px #aa2a2a";
+				birthDateErrorContainer.style.display = "block";
+				submitButton.disabled = true;
+				updateButton.disabled = true;
+			} else if(birthDate > currentDate){
+				birthDateBox.style.backgroundColor = "#f8d7d7";
+				birthDateBox.style.border = "solid 2px #aa2a2a";
+				birthDateErrorContainer.style.display = "block";
+				submitButton.disabled = true;
+				updateButton.disabled = true;
+			} else{
+				birthDateBox.style.backgroundColor = "white";
+				birthDateBox.style.border = "solid 0px white";
+				birthDateErrorContainer.style.display = "none";
+			}
+		}
+
+		function checkIfEmptyGunType(){
+			if(gunTypeSelect.value == "gunTypeUndecided"){
+				gunTypeSelect.style.backgroundColor = "#f8d7d7";
+				gunTypeSelect.style.border = "solid 2px #aa2a2a";
+				gunTypeErrorContainer.style.display = "block";
+			} else {
+				gunTypeSelect.style.backgroundColor = "white";
+				gunTypeSelect.style.border = "solid 0px white";
+				gunTypeErrorContainer.style.display = "none";
+			}
+		}
+
+		function checkIfEmptyGunEquipped(){
+			if(gunEquippedBox.value == ""){
+				gunEquippedBox.style.backgroundColor = "#f8d7d7";
+				gunEquippedBox.style.border = "solid 2px #aa2a2a";
+				gunEquippedErrorContainer.style.display = "block";
+			} else {
+				gunEquippedBox.style.backgroundColor = "white";
+				gunEquippedBox.style.border = "solid 0px white";
+				gunEquippedErrorContainer.style.display = "none";
+			}
+		}
+
+		function updateForm(){
+			const rowToUpdate = document.getElementsByClassName("selected-row")[0];
+			const selectedTags = document.querySelectorAll('input[name="tags"]:checked');
+
+			let tagsValue = "";
+				for (let i = 0; i < selectedTags.length; i++) {
+					const tag = selectedTags[i].value;
+					if (i !== selectedTags.length - 1) {
+						tagsValue += tag + ",\n";
+					} else {
+						tagsValue += tag;
+					}
+				}
+
+			rowToUpdate.cells[0].innerText = document.getElementById("nameTextBox").value;
+			rowToUpdate.cells[1].innerText = document.querySelector('input[name="sex"]:checked').value;
+			rowToUpdate.cells[2].innerText = parseInt(document.getElementById("ageNumberBox").value);
+			rowToUpdate.cells[3].innerText = document.getElementById("birthDate").value;
+			rowToUpdate.cells[4].innerText = document.getElementById("gunTypeSelect").value;
+			rowToUpdate.cells[5].innerText = document.getElementById("gunEquippedBox").value;
+			rowToUpdate.cells[6].innerText = tagsValue;
+			rowToUpdate.cells[7].innerText = document.getElementById("colorAssigned").value;
+			rowToUpdate.cells[8].innerText = document.querySelector('input[name="status"]:checked').value;
+			rowToUpdate.cells[9].innerText = document.getElementById("additionalInfoTextBox").value;
+
+			document.getElementById("updateButtonContainer").style.display = "none";
+			document.getElementById("submitButtonContainer").style.display = "block";
+			document.getElementById("gkForm").reset();
+			enableButton();
+			rowToUpdate.classList.remove("selected-row");
+		}
+
+		function submitForm(){
+			const formTable = document.getElementById("dataTable");
+			const formName = document.getElementById("nameTextBox").value;
+			const formSex = document.querySelector('input[name="sex"]:checked').value;
+			const formAge = parseInt(document.getElementById("ageNumberBox").value);
+			const formBirthDate = document.getElementById("birthDate").value;
+			const formGunType = document.getElementById("gunTypeSelect").value;
+			const formGun = document.getElementById("gunEquippedBox").value;
+			const formTags = document.querySelectorAll('input[name="tags"]:checked');
+			const formColor = document.getElementById("colorAssigned").value;
+			const formStatus = document.querySelector('input[name="status"]:checked').value;
+			const formInfo = document.getElementById("additionalInfoTextBox").value;
+			const newRowId = Date.now().toString();
+			const newRow = formTable.insertRow();
+
+			const nameCell = newRow.insertCell(0);
+			nameCell.innerText = formName;
+			nameCell.classList.add("nameDataColumn");
+
+			const sexCell = newRow.insertCell(1);
+			sexCell.innerText = formSex;
+			sexCell.classList.add("sexDataColumn");
+
+			const ageCell = newRow.insertCell(2);
+			ageCell.innerText = formAge;
+			ageCell.classList.add("ageDataColumn");
+
+			const birthDateCell = newRow.insertCell(3);
+			birthDateCell.innerText = formBirthDate;
+			birthDateCell.classList.add("birthDateDataColumn");
+
+			const gunTypeCell = newRow.insertCell(4);
+			gunTypeCell.innerText = formGunType;
+			gunTypeCell.classList.add("gunTypeDataColumn");
+
+			const gunCell = newRow.insertCell(5);
+			gunCell.innerText = formGun;
+			gunCell.classList.add("gunEquippedDataColumn");
+
+			const tagsCell = newRow.insertCell(6);
+			tagsCell.classList.add("tagsDataColumn");
+
+			for (let i = 0; i < formTags.length; i++) {
+				const tag = formTags[i].value;
+				if (i !== formTags.length - 1) {
+					tagsCell.innerText += tag + ",\n";
+				} else {
+					tagsCell.innerText += tag;
+				}
+
+			}
+
+			const colorCell = newRow.insertCell(7);
+			colorCell.innerText = formColor;
+			colorCell.classList.add("colorAssignedDataColumn");
+
+			const statusCell = newRow.insertCell(8);
+			statusCell.innerText = formStatus;
+			statusCell.classList.add("statusDataColumn");
+
+			const infoCell = newRow.insertCell(9);
+			infoCell.innerText = formInfo;
+			infoCell.classList.add("infoDataColumn");
+
+			const updateButton = document.createElement("button");
+			updateButton.id = "updateButton_" + newRowId;
+			updateButton.innerText = "Update";
+
+			const deleteButton = document.createElement("button");
+			deleteButton.id = "deleteButton_" + newRowId;
+			deleteButton.innerText = "Delete";
+
+			updateButton.addEventListener("click", () => {
+
+				selectRow(newRow);
+
+				nameTextBox.style.backgroundColor = "white";
+				nameTextBox.style.border = "solid 0px white";
+				nameErrorContainer.style.display = "none";
+				ageNumberBox.style.backgroundColor = "white";
+				ageNumberBox.style.border = "solid 0px white";
+				ageErrorContainer.style.display = "none";
+				document.getElementById("birthDate").style.backgroundColor = "white";
+				document.getElementById("birthDate").style.border = "solid 0px white";
+				birthDateErrorContainer.style.display = "none";
+				gunTypeSelect.style.backgroundColor = "white";
+				gunTypeSelect.style.border = "solid 0px white";
+				gunTypeErrorContainer.style.display = "none";
+				gunEquippedBox.style.backgroundColor = "white";
+				gunEquippedBox.style.border = "solid 0px white";
+				gunEquippedErrorContainer.style.display = "none";
+
+				document.getElementById("updateButtonContainer").style.display = "block";
+				document.getElementById("submitButtonContainer").style.display = "none";
+
+				nameTextBox.value = formName;
+				document.querySelector(`input[name="sex"][value="${formSex}"]`).checked = true;
+				ageNumberBox.value = formAge;
+				birthDate.value = formBirthDate;
+				gunTypeSelect.value = formGunType;
+				gunEquippedBox.value = formGun;
+				tagsInRow = newRow.cells[6].innerText.split(',\n');
+				tagsQuestion = document.querySelectorAll('input[name="tags"]');
+				checkCheckboxes(tagsQuestion, tagsInRow);
+				colorAssigned.value = formColor;
+				document.querySelector(`input[name="status"][value="${formStatus}"]`).checked = true;
+				additionalInfoTextBox.value = formInfo;
+
+				enableUpdateButton();
+			});
+
+			deleteButton.addEventListener("click", () => {
+				const checkUpdate = document.getElementsByClassName("selected-row");
+				newRow.style.backgroundColor = "rgb(255,0,0,0.3)";
+
+				setTimeout(function(){
+					const confirmDelete = confirm("Are you sure you want to delete this row?");
+					if(confirmDelete){
+						newRow.remove();
+					} else {
+						newRow.style.backgroundColor = "";
+					}
+					if(!checkUpdate.length){
+						submitButtonContainer.style.display = "block";
+						updateButtonContainer.style.display = "none";
+						document.getElementById("gkForm").reset();
+					}
+				}, 1);
+			});
+
+			const buttonContainer = document.createElement("div");
+			buttonContainer.appendChild(updateButton);
+			buttonContainer.appendChild(deleteButton);
+
+			const buttonCell = newRow.insertCell(10);
+			buttonCell.appendChild(buttonContainer);
+			buttonCell.classList.add("optionsDataColumn");
+
+			document.getElementById("gkForm").reset();
+			enableButton();
+		}
+
+		function updateSampleRecOne(){
+			const thisRow = document.getElementById("sampleRecOne");
+			selectRow(thisRow);
+
+			nameTextBox.style.backgroundColor = "white";
+			nameTextBox.style.border = "solid 0px white";
+			nameErrorContainer.style.display = "none";
+			ageNumberBox.style.backgroundColor = "white";
+			ageNumberBox.style.border = "solid 0px white";
+			ageErrorContainer.style.display = "none";
+			birthDate.style.backgroundColor = "white";
+			birthDate.style.border = "solid 0px white";
+			birthDateErrorContainer.style.display = "none";
+			gunTypeSelect.style.backgroundColor = "white";
+			gunTypeSelect.style.border = "solid 0px white";
+			gunTypeErrorContainer.style.display = "none";
+			gunEquippedBox.style.backgroundColor = "white";
+			gunEquippedBox.style.border = "solid 0px white";
+			gunEquippedErrorContainer.style.display = "none";
+
+			document.getElementById("updateButtonContainer").style.display = "block";
+			document.getElementById("submitButtonContainer").style.display = "none";
+
+			nameTextBox.value = thisRow.cells[0].innerText;
+			document.querySelector(`input[name="sex"][value="${thisRow.cells[1].innerText}"]`).checked = true;
+			ageNumberBox.value = thisRow.cells[2].innerText;
+			birthDate.value = thisRow.cells[3].innerText;
+			gunTypeSelect.value = thisRow.cells[4].innerText;
+			gunEquippedBox.value = thisRow.cells[5].innerText;
+			tagsInRow = thisRow.cells[6].innerText.split(',\n');
+			tagsQuestion = document.querySelectorAll('input[name="tags"]');
+			checkCheckboxes(tagsQuestion, tagsInRow);
+			colorAssigned.value = thisRow.cells[7].innerText;
+			document.querySelector(`input[name="status"][value="${thisRow.cells[8].innerText}"]`).checked = true;
+			additionalInfoTextBox.value = thisRow.cells[9].innerText;
+
+			enableUpdateButton();
+		}
+
+		function deleteSampleRecOne(){
+			const row = document.getElementById("sampleRecOne");
+			const checkUpdate = document.getElementsByClassName("selected-row");
+			row.style.backgroundColor = "rgb(255,0,0,0.3)";
+
+			setTimeout(function(){
+				const confirmDelete = confirm("Are you sure you want to delete this row?");
+				if(confirmDelete){
+					row.remove();
+				} else {
+					row.style.backgroundColor = "";
+				}
+				if(!checkUpdate.length){
+					submitButtonContainer.style.display = "block";
+					updateButtonContainer.style.display = "none";
+					document.getElementById("gkForm").reset();
+				}
+			}, 1);
+		}
+
+		function updateSampleRecTwo(){
+			const thisRow = document.getElementById("sampleRecTwo");
+			selectRow(thisRow);
+
+			nameTextBox.style.backgroundColor = "white";
+			nameTextBox.style.border = "solid 0px white";
+			nameErrorContainer.style.display = "none";
+			ageNumberBox.style.backgroundColor = "white";
+			ageNumberBox.style.border = "solid 0px white";
+			ageErrorContainer.style.display = "none";
+			birthDate.style.backgroundColor = "white";
+			birthDate.style.border = "solid 0px white";
+			birthDateErrorContainer.style.display = "none";
+			gunTypeSelect.style.backgroundColor = "white";
+			gunTypeSelect.style.border = "solid 0px white";
+			gunTypeErrorContainer.style.display = "none";
+			gunEquippedBox.style.backgroundColor = "white";
+			gunEquippedBox.style.border = "solid 0px white";
+			gunEquippedErrorContainer.style.display = "none";
+
+			document.getElementById("updateButtonContainer").style.display = "block";
+			document.getElementById("submitButtonContainer").style.display = "none";
+
+			nameTextBox.value = thisRow.cells[0].innerText;
+			document.querySelector(`input[name="sex"][value="${thisRow.cells[1].innerText}"]`).checked = true;
+			ageNumberBox.value = thisRow.cells[2].innerText;
+			birthDate.value = thisRow.cells[3].innerText;
+			gunTypeSelect.value = thisRow.cells[4].innerText;
+			gunEquippedBox.value = thisRow.cells[5].innerText;
+			tagsInRow = thisRow.cells[6].innerText.split(',\n');
+			tagsQuestion = document.querySelectorAll('input[name="tags"]');
+			checkCheckboxes(tagsQuestion, tagsInRow);
+			colorAssigned.value = thisRow.cells[7].innerText;
+			document.querySelector(`input[name="status"][value="${thisRow.cells[8].innerText}"]`).checked = true;
+			additionalInfoTextBox.value = thisRow.cells[9].innerText;
+
+			enableUpdateButton();
+		}
+
+		function deleteSampleRecTwo(){
+			const row = document.getElementById("sampleRecTwo");
+			const checkUpdate = document.getElementsByClassName("selected-row");
+			row.style.backgroundColor = "rgb(255,0,0,0.3)";
+
+			setTimeout(function(){
+				const confirmDelete = confirm("Are you sure you want to delete this row?");
+				if(confirmDelete){
+					row.remove();
+				} else {
+					row.style.backgroundColor = "";
+				}
+				if(!checkUpdate.length){
+					submitButtonContainer.style.display = "block";
+					updateButtonContainer.style.display = "none";
+					document.getElementById("gkForm").reset();
+				}
+			}, 1);
+		}
+
+		function selectRow(row){
+			if(selectedRow){
+				selectedRow.classList.remove("selected-row");
+			}
+			selectedRow = row;
+			selectedRow.classList.add("selected-row");
+		}
+
+		function checkCheckboxes(tagsQuestion, tagsInRow){
+			for (let i = 0; i < 9; i++){
+				if (tagsInRow.includes(tagsQuestion[i].value)){
+					tagsQuestion[i].checked = true;
+				} else {
+					tagsQuestion[i].checked = false;
+				}
+			}
+		}
+	</script>
+</html>
